@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #1e3c72, #2a5298);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-y: auto;
+      background-attachment: fixed; /* 배경 고정 */
+    }
+
+    .content {
+      z-index: 10;
+      padding: 20px;
+      text-align: center;
+      max-width: 95%;
+      max-height: 90%;
+      background-color: rgba(0, 0, 0, 0);
+      position: relative;
+    }
+
+    .box {
+      max-width: 100px;
+      cursor: pointer;
+      animation: shake 1s ease-in-out infinite;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(8deg);
+      }
+      50% {
+        transform: rotate(-6deg);
+      }
+      75% {
+        transform: rotate(4deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes fadeOutScale {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+
+    @keyframes fadeInMove {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .new-content {
+      opacity: 0;
+      animation: fadeInMove 1s ease-out forwards;
+    }
+
+    .snowflake {
+      position: fixed; /* 고정 위치로 설정 */
+      color: white;
+      font-size: 20px;
+      pointer-events: none;
+      opacity: 1;
+      animation: fall linear forwards, fadeOut ease-out;
+    }
+
+.text-box {
+  border: 2px solid #80ddff;
+  border-radius: 10px;
+  background-color: rgba(203, 241, 255, 0.5); /* 배경만 투명하게 */
+  padding: 15px;
+  max-width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #2b2b2b; /* 텍스트는 불투명한 색상 */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeInMove 1s ease-out forwards;
+}
+
+.bouncing-text span {
+  display: inline-block; /* 개별 글자를 독립적으로 애니메이션 처리 */
+  animation: bounce 1s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.2s); /* 각 글자의 딜레이 설정 */
+}
+
+.bouncing-text span:nth-child(1) { --i: 0; }
+.bouncing-text span:nth-child(2) { --i: 1; }
+.bouncing-text span:nth-child(3) { --i: 2; }
+.bouncing-text span:nth-child(4) { --i: 3; }
+.bouncing-text span:nth-child(5) { --i: 4; }
+.bouncing-text span:nth-child(6) { --i: 5; }
+.bouncing-text span:nth-child(7) { --i: 6; }
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* 위로 튀어오르는 정도 */
+  }
+}
+
+.neon-text {
+  font-size: 3em;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px #f0f, 0 0 10px #f0f, 0 0 20px #f0f, 0 0 40px #f0f, 0 0 60px #ff00ff;
+  animation: neon-flicker 2s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0% {
+    text-shadow: 0 0 5px #f0f, 0 0 10px #f0f, 0 0 20px #f0f, 0 0 40px #f0f, 0 0 60px #ff00ff;
+  }
+  50% {
+    text-shadow: 0 0 3px #f0f, 0 0 7px #f0f, 0 0 15px #f0f, 0 0 30px #f0f, 0 0 45px #ff00ff;
+  }
+  100% {
+    text-shadow: 0 0 8px #f0f, 0 0 15px #f0f, 0 0 30px #f0f, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
+  }
+}
+
+
+
+.text-box2 {
+  border: 2px solid #efefef;
+  border-radius: 1px;
+  background-color: rgba(239, 239, 239, 1); /* 배경만 투명하게 */
+  padding: 15px;
+  max-width: 80%;
+  margin: 20px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #2b2b2b; /* 텍스트는 불투명한 색상 */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeInMove 1s ease-out forwards;
+}
+
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%);
+      }
+      100% {
+        transform: translateY(40vh); /* 화면 아래까지 떨어지도록 설정 */
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <!-- 선물 상자 이미지 -->
+    <img src="https://i.ibb.co/T2nDJKh/Box-S.png" alt="Gift Box" class="box" id="giftBox" />
+    <h1 id="initialText">무슨 아이템이 들어있을까?</h1>
+    <p id="initialDescription"><span style="font-style: italic;">크리스마스가 다가온 어느 날, 당신은 머리맡에 놓여 있는 이상한 선물 상자를 발견했다!</span><br> 이건 대체 뭐지?<br><br><span style="font-weight: bold;">선물을 클릭해 보세요!</span> (두근두근.......)</p>
+
+    <!-- 새로운 콘텐츠 -->
+    <div id="newContent" class="hidden">
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <img src="https://i.ibb.co/Pjm0g8w/S.png" alt="New Image" class="new-content" />
+      <h1 class="new-content"><span style="font-style: italic;">두둥! </span> <span style="text-decoration: underline;">[당신을 졸졸 쫓는 아기 신수]</span>를 얻었다!</h1>
+      <p class="new-content"><span style="font-style: italic; color: #b4b4b4;font-size: 20px;">"쀼! 쀼우우-! <span style="font-style: italic; color: #b4b4b4;font-size: 10px;">(대충 내가 지켜주겠다는 뜻)</span>"</p>
+      <p class="new-content">　</p>
+      <p class="new-content">제국을 지켜준다는 전설 속의 신수.
+<br>하지만 신수가 깨어난 지 벌써 200여년이나 지나, 다들 그것을 전설 속의 존재로만 여겼다. <br>...당신이 신수를 깨우기 전까지는!<p class="new-content" span style="font-style: italic;color: #b4b4b4;">"쀼우우! 쁏!<span style="font-style: italic; color: #b4b4b4;font-size: 10px;">(대충 네가 오늘부터 내 주인이라는 뜻)</span>"<br>"오옷! 이게 전설로만 내려오던 신수!"<br>"쁏쀼! 쀼우우-!<span style="font-style: italic; color: #b4b4b4;font-size: 10px;">(대충 오이는 싫으니까 고기를 달라는 뜻)</span>"<br>"신수님이 뭐라고 하는 걸까요? 분명 대단한 말이겠죠!" <br>"신수님께서 여주님을 따르신다!" </span>
+<p class="new-content">대단한 능력의 신수가 따르는 당신!<br>모두가 당신을 두려워하며 경외합니다.</p>
+      <p class="new-content">　</p>
+
+<div class="text-box">
+  <span style="font-weight: bold;">이것만 있으면 난데없는 납치에도 안심!</span><br>신수가 알아서 악당들을 줘팬 후 남주까지 야무지게 불러올 것입니다.<p><span style="font-style: italic;font-size: 13px">- '난데없는 납치'란?</span><br><span style="font-size: 13px">갑자기 악당들이 미쳐서 여주를 납치해가는 상황.<br>고구마 상황이지만 주변 인물들이 빡쳐하는 걸 보는 재미가 있다.</span>
+</div>
+
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <h2 class="new-content"><span style="font-style: italic;">+보너스! 다른 상자에는 어떤 선물이 들어있었을까?</span> </h3>
+
+<div class="text-box2">
+</a>
+<img src="https://i.ibb.co/4Nktw4n/Box-C.png" width="22" height="22">F급 상자 - <img src="https://i.ibb.co/tK5V0Nt/F.png" width="22" height="22"> 원작 기억력 UP 물약<br>
+<img src="https://i.ibb.co/vwnf8Lj/Box-B.png" width="22" height="22">C급 상자 - <img src="https://i.ibb.co/wN3JPBW/C.png" width="22" height="22"> 정보 길드의 비밀 증표<br>
+<img src="https://i.ibb.co/GMwKvNz/Box-B.png" width="22" height="22">B급 상자 - <img src="https://i.ibb.co/q9ts5f9/B.png" width="22" height="22"> 육아물 가족을 녹이는 솜사탕<br>
+<img src="https://i.ibb.co/SwjtL5s/Box-A.png" width="22" height="22">A급 상자 - <img src="https://i.ibb.co/0ff2kfb/A.png" width="22" height="22"> 인외 남주의 수상한 반지<br>
+<img src="https://i.ibb.co/T2nDJKh/Box-S.png" width="22" height="22">S급 상자 - <img src="https://i.ibb.co/Pjm0g8w/S.png" width="22" height="22"> 당신을 졸졸 쫓는 아기 신수<br>
+<img src="https://i.ibb.co/N6q4Zdk/Box-EX.png" width="22" height="22">EX급 상자 - <img src="https://i.ibb.co/jbDJrc0/EX.png" width="22" height="22"> 먼치킨 여주 버프 브로치 <br>
+</div>
+
+
+      <p class="new-content">　</p>
+      <h3><p class="new-content" span style="font-style: italic;">"이거 진짜일까?"</span></h3>
+      <p class="new-content">아니면 누가 장난을 친 걸까? <br> 당신이 의아해하고 있을 동안, 창 밖에서 <span style="font-style: italic;">맑은 종소리</span>가 들렸다.<br><span style="font-style: italic;">사슴이 푸르릉대는 소리, 발굽을 탁탁 치는 소리</span>도 들린다.
+<p class="new-content" span style="font-style: italic;">어라? 시골도 아니고, 도시에서 왜 이런 소리가...?</span><br>
+의아해하던 당신은 조심스럽게 창문을 열었다.
+<p class="new-content">하지만 당신이 창문을 열자마자 거짓말처럼 그 모든 소리가 뚝 끊겨버렸다.<br>
+<span style="font-style: italic;">역시 잘못 들었나?</span><p class="new-content">
+어째서인지 조금 아쉬운 마음을 삼키고 다시 창문을 닫으려 했을 때.<br>
+아주 멀리서, 누군가의 밝은 목소리가 들렸다....</p>
+
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+
+
+<p class="bouncing-text neon-text">
+  <span>"메</span><span>리</span> <span>크</span><span>리</span><span>스</span><span>마</span><span>스!"</span>
+</p>
+
+
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+      <p class="new-content">　</p>
+    </div>
+  </div>
+
+  <script>
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.textContent = '❄️';
+
+      // 눈송이 위치와 속성 설정
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.animationDuration = (Math.random() * 3 + 5) + 's'; // 지속 시간
+      snowflake.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      snowflake.style.top = '-5%';
+
+      document.body.appendChild(snowflake);
+
+      // 애니메이션 끝난 후 DOM에서 삭제
+      snowflake.addEventListener('animationend', () => {
+        snowflake.remove();
+      });
+    }
+
+    // 일정 간격으로 눈송이 생성
+    setInterval(createSnowflake, 100);
+
+    const giftBox = document.getElementById("giftBox");
+    const initialText = document.getElementById("initialText");
+    const initialDescription = document.getElementById("initialDescription");
+    const newContent = document.getElementById("newContent");
+
+    giftBox.addEventListener("click", () => {
+      // 선물 상자 페이드아웃 및 새 콘텐츠 표시
+      giftBox.style.animation = "fadeOutScale 0.6s ease-in-out forwards";
+
+      setTimeout(() => {
+        // 기존 텍스트 숨기기
+        initialText.style.display = "none";
+        initialDescription.style.display = "none";
+
+        // 새 콘텐츠 보여주기
+        giftBox.style.display = "none"; // 선물 상자 숨기기
+        newContent.classList.remove("hidden");
+      }, 600); // 페이드아웃 이후 실행
+    });
+  </script>
+</body>
+</html>
